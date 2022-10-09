@@ -10,7 +10,11 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#4169E1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,7 +28,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppins"
                 android:text="New York,US"
-                android:textColor="#000"
+                android:textColor="#FFF"
                 android:textSize="25sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -45,21 +49,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/poppins"
-                android:text="25 C "
-                android:textColor="#000"
+                android:text=""
+                android:textColor="#FFF"
                 android:textSize="50sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/city_name" />
 
             <TextView
-                android:id="@+id/cloud_data"
+                android:id="@+id/cloudData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="@font/poppins"
                 android:text="Few clouds"
-                android:textColor="#000"
+                android:textColor="#FFF"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/temperature" />
@@ -71,21 +75,21 @@
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/poppins"
                 android:text="Wind: "
-                android:textColor="#000"
+                android:textColor="#FFF"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cloud_data" />
+                app:layout_constraintTop_toBottomOf="@+id/cloudData" />
 
             <TextView
-                android:id="@+id/wind_data"
+                android:id="@+id/windData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:text="7.2 m/s"
-                android:textColor="#000"
+                android:text=""
+                android:textColor="#FFF"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/cloud_data" />
+                app:layout_constraintTop_toBottomOf="@+id/cloudData" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -94,21 +98,21 @@
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/poppins"
                 android:text="Pressure: "
-                android:textColor="#000"
+                android:textColor="#FFF"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <TextView
-                android:id="@+id/pressure_data"
+                android:id="@+id/pressureData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:text="1938 hPa"
-                android:textColor="#000"
+                android:text=""
+                android:textColor="#FFF"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/wind_data" />
+                app:layout_constraintTop_toBottomOf="@+id/windData" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -117,21 +121,21 @@
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/poppins"
                 android:text="Humidity: "
-                android:textColor="#000"
+                android:textColor="#FFF"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <TextView
-                android:id="@+id/humidity_data"
+                android:id="@+id/humidityData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:text="39%"
-                android:textColor="#000"
+                android:text=""
+                android:textColor="#FFF"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/textView3"
-                app:layout_constraintTop_toBottomOf="@+id/pressure_data" />
+                app:layout_constraintTop_toBottomOf="@+id/pressureData" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -140,21 +144,21 @@
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/poppins"
                 android:text="Sunrise: "
-                android:textColor="#000"
+                android:textColor="#FFF"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <TextView
-                android:id="@+id/sunrise_data"
+                android:id="@+id/sunriseData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:text="12.00 PM"
-                android:textColor="#000"
+                android:text=""
+                android:textColor="#FFF"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/humidity_data" />
+                app:layout_constraintTop_toBottomOf="@+id/humidityData" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -163,21 +167,21 @@
                 android:layout_marginStart="20dp"
                 android:fontFamily="@font/poppins"
                 android:text="Sunset: "
-                android:textColor="#000"
+                android:textColor="#FFF"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
             <TextView
-                android:id="@+id/sunset_data"
+                android:id="@+id/sunsetData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:text="1.00 PM"
-                android:textColor="#000"
+                android:text=""
+                android:textColor="#FFF"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/textView5"
-                app:layout_constraintTop_toBottomOf="@+id/sunrise_data" />
+                app:layout_constraintTop_toBottomOf="@+id/sunriseData" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
