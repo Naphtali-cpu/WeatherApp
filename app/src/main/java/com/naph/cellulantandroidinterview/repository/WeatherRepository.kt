@@ -5,7 +5,7 @@ import com.naph.cellulantandroidinterview.api.WeatherApi
 import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(
-    private val apiService: WeatherApi
+    public val apiService: WeatherApi
 ) {
     suspend fun getWeather(q: String) = apiService.getSearchedData(q)
 
