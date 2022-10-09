@@ -7,7 +7,7 @@ import javax.inject.Inject
 class WeatherRepository @Inject constructor(
     private val apiService: WeatherApi
 ) {
-    suspend fun getWeather() = apiService.getSearchedData()
+    suspend fun getWeather(q: String) = apiService.getSearchedData(q)
 
 //    suspend fun getSearchedWeatherData(searchQuery: String) =
 //        RetrofitInstance.api.getSearchedData(searchQuery)

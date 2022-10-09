@@ -7,8 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.naph.cellulantandroidinterview.models.WeatherResponse
 import com.naph.cellulantandroidinterview.repository.WeatherRepository
+import com.naph.cellulantandroidinterview.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,14 +21,17 @@ class WeatherViewModel @Inject constructor(
     private val _response = MutableLiveData<WeatherResponse>()
     val weatherResponse: LiveData<WeatherResponse>
         get() = _response
+    val searchWeather: MutableLiveData<Resource<WeatherResponse>> = MutableLiveData()
+
+    var q = "London, uk"
 
 
     init {
-        getWeather()
+        getWeather(q)
     }
 
-    private fun getWeather() = viewModelScope.launch {
-        repository.getWeather().let { response ->
+    private fun getWeather(q: String) = viewModelScope.launch {
+        repository.getWeather(q).let { response ->
             if (response.isSuccessful) {
                 _response.postValue(response.body())
             } else {

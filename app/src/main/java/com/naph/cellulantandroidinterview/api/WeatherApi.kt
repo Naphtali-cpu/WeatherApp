@@ -10,7 +10,7 @@ interface WeatherApi {
 
     @GET("weather")
     suspend fun getSearchedData(
-        @Query("q") q: String = "London,uk",
+        @Query("q") q: String,
         @Query("APPID") APPID: String = API_KEY
     ): Response<WeatherResponse>
 }
