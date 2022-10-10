@@ -3,16 +3,23 @@
 A simple android application to show weather data upon searching any city.
 
 
-### Tech Stack
+## Tech Stack
 
-* [Kotlin] (https://kotlinlang.org/)
-* [MVVM Architecture] (https://developer.android.com/topic/architecture?gclid=Cj0KCQjwhY-aBhCUARIsALNIC055e3Rk9RPdqGE_4wa6COElY33eHjxqpVDuJuVf1k7wV7uv2khw1AsaAs2jEALw_wcB&gclsrc=aw.ds)
-* [Retrofit] (https://square.github.io/retrofit/)
+* [Kotlin](https://kotlinlang.org/)
+  
+* [MVVM Architecture](https://developer.android.com/topic/architecture?gclid=Cj0KCQjwhY-aBhCUARIsALNIC055e3Rk9RPdqGE_4wa6COElY33eHjxqpVDuJuVf1k7wV7uv2khw1AsaAs2jEALw_wcB&gclsrc=aw.ds)
+  
+* [Retrofit](https://square.github.io/retrofit/)
+  
 * [Dependency Injection]
-  * [Dagger, Hilt] (https://developer.android.com/training/dependency-injection/hilt-android)
-* [Coroutines] (https://kotlinlang.org/docs/reference/coroutines-overview.html)
-* [View Binding] (https://developer.android.com/topic/libraries/view-binding)
-* [JUnit 4 Testing] (https://junit.org/junit4/)
+  
+  * [Dagger, Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
+  
+* [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html)
+  
+* [View Binding](https://developer.android.com/topic/libraries/view-binding)
+  
+* [JUnit 4 Testing](https://junit.org/junit4/)
 
 
 ## Setup Guide
