@@ -1,60 +1,76 @@
 package com.naph.cellulantandroidinterview.ui.views
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.naph.cellulantandroidinterview.R
+import com.naph.cellulantandroidinterview.adapter.TodayForecastAdapter
+import com.naph.cellulantandroidinterview.api.WeatherApi
+import com.naph.cellulantandroidinterview.databinding.FragmentTodayBinding
+import com.naph.cellulantandroidinterview.databinding.TodayForecastListBinding
+import com.naph.cellulantandroidinterview.models.forecast.OurData
+import com.naph.cellulantandroidinterview.repository.WeatherRepository
+import com.naph.cellulantandroidinterview.viewmodel.WeatherViewModel
+import com.naph.cellulantandroidinterview.viewmodel.WeatherViewModelProviderFactory
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [TodayFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class TodayFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var factory: WeatherViewModelProviderFactory
+    lateinit var binding: FragmentTodayBinding
+    private lateinit var viewModel: WeatherViewModel
+
+    private var todayWeather = listOf<OurData>()
+
+    lateinit var weatherAdapter: TodayForecastAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_today, container, false)
+    ): View {
+        return FragmentTodayBinding.inflate(inflater, container, false).also {
+            binding = it
+        }.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TodayFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TodayFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val api = WeatherApi()
+        val repository = WeatherRepository(api)
+
+        factory = WeatherViewModelProviderFactory(repository)
+        viewModel = ViewModelProviders.of(this, factory).get(WeatherViewModel::class.java)
+
+        weatherAdapter = TodayForecastAdapter(todayWeather)
+        viewModel.getTodayForecastWeather("London, ca")
+
+        binding.todayWeatherForecast.also {
+            it.layoutManager = LinearLayoutManager(requireContext())
+            it.setHasFixedSize(true)
+        }
+
+        binding.todayWeatherForecast.adapter = weatherAdapter
+
+        viewModel.weatherForecastResponse.observe(viewLifecycleOwner) {
+            weatherAdapter.todayList = it.list
+            Log.i("DATA", it.toString())
+        }
+
+
     }
+
 }

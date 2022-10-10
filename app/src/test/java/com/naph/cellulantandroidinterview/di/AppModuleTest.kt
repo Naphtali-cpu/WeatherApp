@@ -18,7 +18,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.InputStreamReader
 
 @RunWith(JUnit4::class)
-class ApiModuleTest {
+class AppModuleTest {
 
     private lateinit var server: MockWebServer
     @get:Rule

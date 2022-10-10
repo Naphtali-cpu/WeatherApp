@@ -10,17 +10,13 @@ import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.naph.cellulantandroidinterview.adapter.ViewPagerAdapter
 import com.naph.cellulantandroidinterview.databinding.ActivityMainBinding
-import com.naph.cellulantandroidinterview.util.Constants.Companion.SEARCH_WEATHER_TIME_DELAY
 import com.naph.cellulantandroidinterview.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.math.RoundingMode
 import java.time.Instant
 import java.time.ZoneId
@@ -28,6 +24,8 @@ import java.time.ZoneId
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+
+//    lateinit var viewModel: WeatherViewModel
     private lateinit var binding: ActivityMainBinding
     private val viewModel: WeatherViewModel by viewModels()
 
@@ -36,7 +34,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        var job: Job? = null
+
+//        val newsRepository = WeatherRepository(WeatherDatabase(this))
+//        val viewModelProviderFactory = WeatherViewModelProviderFactory(newsRepository)
+//        viewModel = ViewModelProvider(this, viewModelProviderFactory).get(WeatherViewModel::class.java)
 
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         viewPager.adapter = ViewPagerAdapter(supportFragmentManager)
@@ -44,9 +45,9 @@ class MainActivity : AppCompatActivity() {
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         tabLayout.setupWithViewPager(viewPager)
 
-
-        binding.searchWeather.setOnEditorActionListener { _, actionId, _ ->
+        binding.searchWeather.setOnEditorActionListener { tv, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                viewModel.getWeather(tv.text.toString())
                 viewModel.weatherResponse.observe(this) { weather ->
                     binding.apply {
                         cityName.text = weather.name
