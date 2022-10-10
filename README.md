@@ -11,7 +11,7 @@ A simple android application to show weather data upon searching any city.
   
 * [Retrofit](https://square.github.io/retrofit/)
   
-* [Dependency Injection]
+* Dependency Injection
   
   * [Dagger, Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
   
