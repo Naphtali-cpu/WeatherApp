@@ -1,6 +1,7 @@
 package com.naph.cellulantandroidinterview.repository
 
 import com.naph.cellulantandroidinterview.api.WeatherApi
+import com.naph.cellulantandroidinterview.db.WeatherDao
 import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(

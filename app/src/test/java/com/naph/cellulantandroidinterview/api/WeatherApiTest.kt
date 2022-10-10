@@ -1,24 +1,22 @@
-package com.naph.cellulantandroidinterview.di
+package com.naph.cellulantandroidinterview.api
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.naph.cellulantandroidinterview.api.WeatherApi
+import com.google.common.truth.Truth
 import com.naph.cellulantandroidinterview.repository.WeatherRepository
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.InputStreamReader
 
 @RunWith(JUnit4::class)
-class AppModuleTest {
+class WeatherApiTest {
 
     private lateinit var server: MockWebServer
     @get:Rule
@@ -31,7 +29,7 @@ class AppModuleTest {
     fun init() {
         server = MockWebServer()
 
-        var BASE_URL = server.url("/").toString()
+        var BASE_URL = server.url("https://api.openweathermap.org/data/2.5/").toString()
 
         val okHttpClient = OkHttpClient
             .Builder()
@@ -62,7 +60,7 @@ class AppModuleTest {
         Assert.assertEquals(true, finalResponse.code() == 200)
     }
 
-//    Testing for invalid API Key / Status 401
+    //    Testing for invalid API Key / Status 401
     @Test
     fun testInvalidApi() {
         mockedResponse = MockResponseFileReader("weatherApiResponse/error401.json").content
@@ -116,6 +114,86 @@ class AppModuleTest {
         }
 
         Assert.assertEquals(true, response.code() == 400)
+    }
+
+    /*
+        Test for Forecast Api
+     */
+
+    @Test
+    fun testSuccessTodayForecastResponse() {
+        mockedResponse = MockResponseFileReader("weatherApiResponse/forecastsuccess.json").content
+        server.enqueue(
+            MockResponse()
+                .setResponseCode(200)
+                .setBody(mockedResponse)
+        )
+        val finalResponse = runBlocking {
+            repository.apiService.getTodayWeatherForecast("dubai")
+        }
+
+        Assert.assertEquals(true, finalResponse.code() == 200)
+    }
+
+//     Test to Get Tomorrow Forecost Response
+
+    @Test
+    fun testSuccessTomorrowForecastResponse() {
+        mockedResponse = MockResponseFileReader("weatherApiResponse/forecastsuccess.json").content
+        server.enqueue(
+            MockResponse()
+                .setResponseCode(200)
+                .setBody(mockedResponse)
+        )
+        val finalResponse = runBlocking {
+            repository.apiService.getTomorrowWeatherForecast("dubai")
+        }
+
+        Assert.assertEquals(true, finalResponse.code() == 200)
+    }
+
+    @Test
+    fun testSuccessLaterForecastResponse() {
+        mockedResponse = MockResponseFileReader("weatherApiResponse/forecastsuccess.json").content
+        server.enqueue(
+            MockResponse()
+                .setResponseCode(200)
+                .setBody(mockedResponse)
+        )
+        val finalResponse = runBlocking {
+            repository.apiService.getLaterWeatherForecast("dubai")
+        }
+        Assert.assertEquals(true, finalResponse.code() == 200)
+    }
+
+//    Test Eroor 401 response
+
+    @Test
+    fun testForecastAppIdResponse() {
+        mockedResponse = MockResponseFileReader("weatherApiResponse/error401.json").content
+        server.enqueue(
+            MockResponse()
+                .setResponseCode(401)
+                .setBody(mockedResponse)
+        )
+        val finalResponse = runBlocking {
+            repository.apiService.getLaterWeatherForecast("dubai", "868786688899779")
+        }
+        Assert.assertEquals(false, finalResponse.code() == 401)
+    }
+
+    @Test
+    fun testNothingForecastToGeoCode() {
+        mockedResponse = MockResponseFileReader("weatherApiResponse/error400.json").content
+        server.enqueue(
+            MockResponse()
+                .setResponseCode(400)
+                .setBody(mockedResponse)
+        )
+        val finalResponse = runBlocking {
+            repository.apiService.getLaterWeatherForecast("")
+        }
+        Assert.assertEquals(false, finalResponse.code() == 400)
     }
 
 }

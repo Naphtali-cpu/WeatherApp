@@ -2,6 +2,7 @@ package com.naph.cellulantandroidinterview.di
 
 
 import com.naph.cellulantandroidinterview.api.WeatherApi
+import com.naph.cellulantandroidinterview.db.WeatherItemDatabase
 import com.naph.cellulantandroidinterview.util.Constants
 import dagger.Module
 import dagger.Provides
