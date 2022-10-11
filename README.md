@@ -26,7 +26,7 @@ A simple android application to show weather data upon searching any city.
 
 Here are the few steps to setup this project
 
-1. Run https://github.com/Naphtali-cpu/WeatherApp.git on your terminal.
+1. Run git clone https://github.com/Naphtali-cpu/WeatherApp.git on your terminal.
 2. Go to Android Studio, open File->Open-> 
 
 
